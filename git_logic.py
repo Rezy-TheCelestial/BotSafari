@@ -397,6 +397,33 @@ async def verify_session(session_string: str) -> bool:
         print(f"🔧 Debug: Session verification error: {e}")
         return False
 
+# ADD THIS MISSING FUNCTION:
+async def get_me_telethon(session_string: str) -> dict:
+    """Get user info using Telethon session string"""
+    try:
+        from telethon.sessions import StringSession
+        
+        client = TelegramClient(StringSession(session_string), API_ID, API_HASH)
+        await client.connect()
+        
+        if not await client.is_user_authorized():
+            raise Exception("Session not authorized")
+        
+        me = await client.get_me()
+        
+        user_info = {
+            'first_name': me.first_name or '',
+            'last_name': me.last_name or '',
+            'username': me.username or '',
+            'user_id': me.id
+        }
+        
+        await client.disconnect()
+        return user_info
+        
+    except Exception as e:
+        raise Exception(f"Failed to get user info: {str(e)}")
+
 # ---------------- Telethon-based Commands ---------------- #
 @authorized_only
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -1359,7 +1386,7 @@ async def names(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         if updated_lines:
             await update.message.reply_text(
-                "?? Updated names from Telegram:\n\n" + "\n".join(updated_lines)
+                "🫧 Updated names from Telegram:\n\n" + "\n".join(updated_lines)
             )
 
 @authorized_only
@@ -2286,4 +2313,5 @@ def main():
     logger.info("Bot started successfully!")
 
 if __name__ == "__main__":
+
     main()
