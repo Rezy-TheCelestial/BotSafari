@@ -1,0 +1,4 @@
+telethon==1.28.5
+python-telegram-bot==20.7
+pymongo==4.5.0
+psutil==5.9.5
