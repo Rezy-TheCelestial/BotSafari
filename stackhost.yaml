@@ -11,7 +11,7 @@ commands:
   package:
     - "nano inxi"
   start:
-    - "python3 git_logic.py"
+    - "python3 success.py"
 
 env:
   ENVIRONMENT: "production"
