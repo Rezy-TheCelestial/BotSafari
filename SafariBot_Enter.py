@@ -1981,7 +1981,7 @@ async def run_safari_hunt(user_id: int, account_name: str, client: TelegramClien
 
         await client.send_message(safari_bot, "/enter")
         print(f"🚪 {account_name}: Sent /enter")
-
+        await asyncio.sleep(2)
         # Keep checking until entry is confirmed or already played
         entered = False
         while True:
@@ -1991,6 +1991,7 @@ async def run_safari_hunt(user_id: int, account_name: str, client: TelegramClien
             if not last_msg:
                 # No response → retry enter
                 await client.send_message(safari_bot, "/enter")
+                await asyncio.sleep(2)
                 continue
 
             text = last_msg[0].text.lower() if last_msg[0].text else ""
@@ -2413,3 +2414,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
