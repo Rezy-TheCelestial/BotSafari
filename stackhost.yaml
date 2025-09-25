@@ -11,7 +11,7 @@ commands:
   package:
     - "nano inxi"
   start:
-    - "python3 SafariBot.py"
+    - "python3 SafariBot_Enter.py"
 
 env:
   ENVIRONMENT: "production"
